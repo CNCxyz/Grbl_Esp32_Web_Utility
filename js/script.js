@@ -84,6 +84,7 @@ async function updateFormData(){
 		$("#ssid").val(changedSettings.apSSID);
 		$("#password").val(changedSettings.apPassword);
 		$("#apChannel").val(changedSettings.apChannel);
+		$("#apChannel").trigger('change');
 		$("#ipAddress").val(changedSettings.apIP);
 	}
 	
@@ -255,20 +256,12 @@ async function connect(){
 		if(response.includes("HLP")){
 			console.log("Grbl_Esp32 Found. Ready.");
 		}else{
-			new Error("Grbl_Esp32 not found on target device.");
+			throw new Error("Grbl_Esp32 not found on target device.");
 		}
 		
 	 } catch (error) {
         console.log("Unhandled error: " + error);
-        console.log("Disconnecting...");
-
-        try {
-            await port.close();
-        }
-        catch {
-        }
-
-        console.log("Disconnected.");
+		await disconnect();
     }
 	
 }
@@ -326,6 +319,10 @@ form.addEventListener('change', function() {
     updateForm();
 });
 
+$('#apChannel').on('select2:select', function (e) {
+	updateForm();
+});
+
 async function buttonClick() {
     
 	if(isConnected()){
@@ -336,14 +333,16 @@ async function buttonClick() {
 		try {
 			await connect();
 		
+			if(isConnected()){
+				await enableForms();
+				await refreshSerialData();
+				await updateFormData();
+				await refreshFormLayout();
+			}
+		
 		} catch(e) {
 			console.error(e);
 		}
-		
-		await enableForms();
-		await refreshSerialData();
-		await updateFormData();
-		await refreshFormLayout();
 		
 	}
 }
