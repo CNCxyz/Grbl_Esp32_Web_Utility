@@ -1,6 +1,6 @@
 # Grbl_Esp32_Web_Utility (GEWU)
 
-The GEWU is a easy to use graphical user interface for Grbl_Esp32 that works entirely on your web browser.
+The GEWU is a easy to use graphical user interface for [Grbl_Esp32](https://github.com/bdring/Grbl_Esp32) that works entirely on your web browser.
 
 The utility allows you to make quick changes to the settings in order to get your Esp32 connected to your network as easily as possible by making changes via the serial port. This is perfect for the intial setup once your firmware has been installed. Once connected to the network, additional settings may be changed through the WebUI.
 
