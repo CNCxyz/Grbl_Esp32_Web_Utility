@@ -28,7 +28,9 @@ Supported Browers:
 On some browsers you must enable your browser's Expiremental Web Platform Features:
 
 *chrome://flags/#enable-experimental-web-platform-features*
+
 *opera://flags/#enable-experimental-web-platform-features*
+
 *edge://flags/#enable-experimental-web-platform-features*
 
 Note: Newer browsers have the compatability enabled by default. Due to the [Mozilla Foundation's stance on Web Serial](https://github.com/mozilla/standards-positions/issues/336), they do not offer support for this feature in Firefox.
