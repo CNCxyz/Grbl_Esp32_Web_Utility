@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="This is a web based utility for configuring a Grbl_Esp32 installation using the Webserial API.">
+    <meta name="author" content="CNC.xyz">
+    <meta name="keywords" content="grbl,esp32,webserial">
+
+    <!-- Title Page-->
+    <title>Grbl Esp32 Web Utility</title>
+    
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-dark p-t-45 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+                <div class="card-heading">
+                    <h2 class="title">Grbl Esp32 Web Utility</h2>
+                </div>
+                <div class="card-body p-l-50 p-r-50" id="disconnected">
+                <!-- /* if ("serial" in navigator) { */ -->
+                
+                <p>This program uses the <a href="https://wicg.github.io/serial/">Web Serial API</a>.</p>
+                <br>
+                <p>You must use a supported web browser such as: Chrome, Edge or Opera.</p>
+                <br>
+                <p>In order to use the program you must enable your browser's <b>Expiremental Web Platform Features</b>:</p><br>
+                <p><i>chrome://flags/#enable-experimental-web-platform-features</i></p>
+				<p><i>opera://flags/#enable-experimental-web-platform-features</i></p>
+				<p><i>edge://flags/#enable-experimental-web-platform-features</i></p>
+                </div>
+                <form method="POST" id="firmware_form">
+                <div class="card-body" id="connected" style="display:none;">
+                        <div class="form-row">
+                            <label class="label label--block name">Connection</label>
+                            <div class="">
+                                <label class="radio-container m-r-55">Wi-Fi (STA)
+                                    <input type="radio" name="type" value="STA" id="STA">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container">Access Point (AP)
+                                    <input type="radio" name="type" value="AP" id="AP">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">SSID</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="text" id="ssid" name="ssid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Password</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="password" id="password" name="password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" id="rowMode" style="display:none;">
+                            <label class="label label--block name">Mode</label>
+                            <div class="">
+                                <label class="radio-container m-r-55">DHCP
+                                    <input type="radio" name="mode" value="dhcp" id="dhcp">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container">Static
+                                    <input type="radio" name="mode" value="static" id="static">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row" id="rowAPChannel" style="display:none;">
+                            <div class="name">AP Channel</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select name="ap_channel" id="apChannel">
+                                            <option disabled="disabled" selected="selected">Choose option</option>
+                                            <option value="1">Channel 1</option>
+                                            <option value="2">Channel 2</option>
+                                            <option value="3">Channel 3</option>
+                                            <option value="4">Channel 4</option>
+                                            <option value="5">Channel 5</option>
+                                            <option value="6">Channel 6</option>
+                                            <option value="7">Channel 7</option>
+                                            <option value="8">Channel 8</option>
+                                            <option value="9">Channel 9</option>
+                                            <option value="10">Channel 10</option>
+                                            <option value="11">Channel 11</option>
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" id="rowIPAddress" style="display:none;">
+                            <div class="name">IP Address</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="text" name="ip_address" id="ipAddress">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" id="rowGateway" style="display:none;">
+                            <div class="name">Gateway</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="text" name="gateway" id="gateway">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" id="rowNetmask" style="display:none;">
+                            <div class="name">Netmask</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="text" name="netmask" id="netmask">
+                                </div>
+                            </div>
+                		</div>
+                	</div>
+                <div class="card-footer">
+                    <button class="btn btn--radius-2 btn--blue-2" type="submit" id="connect">Connect</button><button class="btn btn--radius-2 btn--blue-2" type="submit" style="float:right; display:none;" id="update">Update</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+    <script src="js/serialport.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
+<!-- end document-->
